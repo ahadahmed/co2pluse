@@ -22,8 +22,6 @@ public class Co2SensorMetrics {
     public Co2Metrics last30DaysMetricsOf(UUID sensorId){
         Instant time = Instant.now().minus(30, ChronoUnit.DAYS);
         LinkedList<Co2Sensor> sensorData = this.sensorRepository.getSensorData(sensorId);
-//        if(sensorData == null)
-//            return null;
 
         Optional<Integer> maxLast30Days = sensorData.stream()
                 .filter(data -> data.time.isAfter(time))
@@ -35,7 +33,6 @@ public class Co2SensorMetrics {
                 .mapToInt(Integer::intValue)
                 .average();
 
-        System.out.println("Last 30 days: " + maxLast30Days + " avg: " + avgLast30Days);
         Co2Metrics co2Metrics = new Co2Metrics(maxLast30Days.orElse(0), avgLast30Days.orElse(0));
         return co2Metrics;
 
