@@ -14,11 +14,11 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class Co2SensorTrackerTest {
+class Co2SensorMonitorTest {
 
     private static final String COMMA_DELIMITER = ",";
     private final String testDataDirectory = "sensor-data/";
-    Co2SensorTracker co2SensorTracker = new Co2SensorTracker(new SensorRepository());
+    Co2SensorMonitor co2SensorMonitor = new Co2SensorMonitor(new SensorRepository());
 
 
     @Test
@@ -26,8 +26,8 @@ class Co2SensorTrackerTest {
         UUID sensorId = UUID.fromString("f6a6daf8-191c-4d2e-81d2-d31350361689");
         File censorStatusOkOnCompletion = okFile();
         List<Co2Sensor> co2Sensors = readDataFrom(censorStatusOkOnCompletion);
-        co2Sensors.forEach(data -> co2SensorTracker.measureSensorStatus(data, sensorId));
-        Co2Sensor co2Sensor = co2SensorTracker.currentStatusOfSensor(sensorId);
+        co2Sensors.forEach(data -> co2SensorMonitor.measureSensorStatus(data, sensorId));
+        Co2Sensor co2Sensor = co2SensorMonitor.currentStatusOfSensor(sensorId);
 //        co2Sensor.forEach(data -> System.out.println(data));
 
 
@@ -40,8 +40,8 @@ class Co2SensorTrackerTest {
         UUID sensorId = UUID.fromString("f6a6daf8-191c-4d2e-81d2-d31350361689");
         File censorStatusOkOnCompletion = okFile1();
         List<Co2Sensor> co2Sensors = readDataFrom(censorStatusOkOnCompletion);
-        co2Sensors.forEach(data -> co2SensorTracker.measureSensorStatus(data, sensorId));
-        Co2Sensor co2Sensor = co2SensorTracker.currentStatusOfSensor(sensorId);
+        co2Sensors.forEach(data -> co2SensorMonitor.measureSensorStatus(data, sensorId));
+        Co2Sensor co2Sensor = co2SensorMonitor.currentStatusOfSensor(sensorId);
 
 //        co2Sensor.forEach(data -> System.out.println(data));
 
@@ -55,8 +55,8 @@ class Co2SensorTrackerTest {
         UUID sensorId = UUID.fromString("f6a6daf8-191c-4d2e-81d2-d31350361689");
         File censorStatusOkOnCompletion = alertFile();
         List<Co2Sensor> co2Sensors = readDataFrom(censorStatusOkOnCompletion);
-        co2Sensors.forEach(data -> co2SensorTracker.measureSensorStatus(data, sensorId));
-        Co2Sensor co2Sensor = co2SensorTracker.currentStatusOfSensor(sensorId);
+        co2Sensors.forEach(data -> co2SensorMonitor.measureSensorStatus(data, sensorId));
+        Co2Sensor co2Sensor = co2SensorMonitor.currentStatusOfSensor(sensorId);
 
 //        co2Sensor.forEach(data -> System.out.println(data));
 
@@ -70,8 +70,8 @@ class Co2SensorTrackerTest {
         UUID sensorId = UUID.fromString("f6a6daf8-191c-4d2e-81d2-d31350361689");
         File censorStatusOkOnCompletion = alertFile1();
         List<Co2Sensor> co2Sensors = readDataFrom(censorStatusOkOnCompletion);
-        co2Sensors.forEach(data -> co2SensorTracker.measureSensorStatus(data, sensorId));
-        Co2Sensor co2Sensor = co2SensorTracker.currentStatusOfSensor(sensorId);
+        co2Sensors.forEach(data -> co2SensorMonitor.measureSensorStatus(data, sensorId));
+        Co2Sensor co2Sensor = co2SensorMonitor.currentStatusOfSensor(sensorId);
 
 //        co2Sensor.forEach(data -> System.out.println(data));
 
@@ -85,8 +85,8 @@ class Co2SensorTrackerTest {
         UUID sensorId = UUID.fromString("f6a6daf8-191c-4d2e-81d2-d31350361689");
         File censorStatusOkOnCompletion = warningFile();
         List<Co2Sensor> co2Sensors = readDataFrom(censorStatusOkOnCompletion);
-        co2Sensors.forEach(data -> co2SensorTracker.measureSensorStatus(data, sensorId));
-        Co2Sensor co2Sensor = co2SensorTracker.currentStatusOfSensor(sensorId);
+        co2Sensors.forEach(data -> co2SensorMonitor.measureSensorStatus(data, sensorId));
+        Co2Sensor co2Sensor = co2SensorMonitor.currentStatusOfSensor(sensorId);
 
 
         assertEquals(Co2SensorStatus.WARN, co2Sensor.currentStatus);

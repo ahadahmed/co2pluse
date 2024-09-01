@@ -13,11 +13,11 @@ public class Co2SensorController {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private Co2SensorTracker calculator;
+    private Co2SensorMonitor calculator;
     private Co2SensorMetrics sensorMetrics;
 
-    public Co2SensorController(Co2SensorTracker co2SensorTracker, Co2SensorMetrics co2SensorMetrics) {
-        this.calculator = co2SensorTracker;
+    public Co2SensorController(Co2SensorMonitor co2SensorMonitor, Co2SensorMetrics co2SensorMetrics) {
+        this.calculator = co2SensorMonitor;
         this.sensorMetrics = co2SensorMetrics;
     }
 

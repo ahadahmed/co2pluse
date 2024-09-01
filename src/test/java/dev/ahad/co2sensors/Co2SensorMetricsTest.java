@@ -18,7 +18,7 @@ class Co2SensorMetricsTest {
 
     private static final String COMMA_DELIMITER = ",";
     private final SensorRepository sensorRepository = new SensorRepository();
-    Co2SensorTracker co2SensorTracker = new Co2SensorTracker(sensorRepository);
+    Co2SensorMonitor co2SensorMonitor = new Co2SensorMonitor(sensorRepository);
     Co2SensorMetrics co2SensorMetrics = new Co2SensorMetrics(sensorRepository);
 
 
@@ -27,7 +27,7 @@ class Co2SensorMetricsTest {
         UUID sensorId = UUID.fromString("f6a6daf8-191c-4d2e-81d2-d31350361689");
         File testDataOfSensorStatusOk = okFile();
         List<Co2Sensor> co2Sensors = readDataFrom(testDataOfSensorStatusOk);
-        co2Sensors.forEach(sensorReadings -> co2SensorTracker.measureSensorStatus(sensorReadings, sensorId));
+        co2Sensors.forEach(sensorReadings -> co2SensorMonitor.measureSensorStatus(sensorReadings, sensorId));
         Co2Metrics co2Metrics = co2SensorMetrics.last30DaysMetricsOf(sensorId);
         assertNotNull(co2Metrics);
         assertEquals(2002, co2Metrics.getMaxLast30Days());
@@ -41,7 +41,7 @@ class Co2SensorMetricsTest {
         UUID randomUUID = UUID.randomUUID();
         File testDataOfSensorStatusOk = okFile();
         List<Co2Sensor> co2Sensors = readDataFrom(testDataOfSensorStatusOk);
-        co2Sensors.forEach(sensorReadings -> co2SensorTracker.measureSensorStatus(sensorReadings, sensorId));
+        co2Sensors.forEach(sensorReadings -> co2SensorMonitor.measureSensorStatus(sensorReadings, sensorId));
         Co2Metrics co2Metrics = co2SensorMetrics.last30DaysMetricsOf(randomUUID);
         assertNotNull(co2Metrics);
         assertEquals(0, co2Metrics.getMaxLast30Days());
