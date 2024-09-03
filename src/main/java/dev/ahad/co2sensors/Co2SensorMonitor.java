@@ -10,9 +10,13 @@ public class Co2SensorMonitor {
 
 
     private SensorRepository sensorRepository;
+    public static final Predicate<Co2Sensor> WARNING = metrics -> metrics.co2 >= 2000;
+    public static final Predicate<Co2Sensor> OK = metrics -> metrics.co2 < 2000;
+    private AlertChecker alertChecker;
 
     public Co2SensorMonitor(SensorRepository sensorRepository) {
         this.sensorRepository = sensorRepository;
+        this.alertChecker = new AlertChecker(sensorRepository);
     }
 
 
@@ -25,50 +29,23 @@ public class Co2SensorMonitor {
     public void measureSensorStatus(Co2Sensor sensorReading, UUID sensorId) {
 
 
-        if (sensorReading.co2 >= 2000) {
+        if (WARNING.test(sensorReading)) {
             sensorReading.dataStatus = Co2SensorStatus.WARN;
-            sensorReading.currentStatus = Co2SensorStatus.WARN;
+            sensorReading.sensorStatus = Co2SensorStatus.WARN;
         }
 
-        if (sensorReading.co2 < 2000) {
+        if (OK.test(sensorReading)) {
             sensorReading.dataStatus = Co2SensorStatus.OK;
-            sensorReading.currentStatus = Co2SensorStatus.OK;
+            sensorReading.sensorStatus = Co2SensorStatus.OK;
 
         }
         LinkedList<Co2Sensor> sensorMetrics = this.sensorRepository.getSensorData(sensorId);
         sensorMetrics.add(sensorReading);
-        this.sensorRepository.getSensors().put(sensorId, sensorMetrics);
-        this.checkLatest3(sensorMetrics);
 
-    }
+        this.sensorRepository.getSensors()
+                .putIfAbsent(sensorId, sensorMetrics);
 
-
-    private void checkLatest3(LinkedList<Co2Sensor> sensorMetrics) {
-
-        List<Co2Sensor> last3SensorReadings = new ArrayList<>();
-        Predicate<Co2Sensor> waring = metrics -> metrics.co2 >= 2000;
-        Predicate<Co2Sensor> ok = metrics -> metrics.co2 < 2000;
-
-        ListIterator<Co2Sensor> co2MetricsIterator = sensorMetrics.listIterator(sensorMetrics.size());
-
-        for (int i = 0; i < 3 && co2MetricsIterator.hasPrevious(); i++) {
-            Co2Sensor previous = co2MetricsIterator.previous();
-            last3SensorReadings.add(previous);
-        }
-        Co2Sensor latestSensorReadings = last3SensorReadings.get(0);
-
-        if (last3SensorReadings.size() == 3) {
-            if (last3SensorReadings.stream().allMatch(waring)) {
-                latestSensorReadings.setCurrentStatus(Co2SensorStatus.ALERT);
-                latestSensorReadings.setAlertStartTime(latestSensorReadings.time);
-            } else if (last3SensorReadings.stream().allMatch(ok)) {
-                latestSensorReadings.setCurrentStatus(Co2SensorStatus.OK);
-                latestSensorReadings.setAlertEndTime(latestSensorReadings.time);
-            } else if (last3SensorReadings.get(1).getCurrentStatus() == Co2SensorStatus.ALERT) {
-                latestSensorReadings.setCurrentStatus(Co2SensorStatus.ALERT);
-                latestSensorReadings.setAlertStartTime(last3SensorReadings.get(1).getAlertStartTime());
-            }
-        }
+        this.alertChecker.checkSensorStatus(sensorId);
 
     }
 

@@ -68,7 +68,7 @@ class Co2PulseApplicationTests {
         Co2Sensor co2Sensor = objectMapper.readValue(responseBody, Co2Sensor.class);
         System.out.println(co2Sensor);
         assertNotNull(co2Sensor);
-        assertEquals(Co2SensorStatus.OK,co2Sensor.currentStatus);
+        assertEquals(Co2SensorStatus.OK,co2Sensor.sensorStatus);
 
     }
 

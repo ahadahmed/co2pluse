@@ -31,7 +31,7 @@ class Co2SensorMonitorTest {
 //        co2Sensor.forEach(data -> System.out.println(data));
 
 
-        assertEquals(Co2SensorStatus.OK, co2Sensor.currentStatus);
+        assertEquals(Co2SensorStatus.OK, co2Sensor.sensorStatus);
 
     }
 
@@ -46,7 +46,7 @@ class Co2SensorMonitorTest {
 //        co2Sensor.forEach(data -> System.out.println(data));
 
 
-        assertEquals(Co2SensorStatus.OK, co2Sensor.currentStatus);
+        assertEquals(Co2SensorStatus.OK, co2Sensor.sensorStatus);
 
     }
 
@@ -61,7 +61,7 @@ class Co2SensorMonitorTest {
 //        co2Sensor.forEach(data -> System.out.println(data));
 
 
-        assertEquals(Co2SensorStatus.ALERT, co2Sensor.currentStatus);
+        assertEquals(Co2SensorStatus.ALERT, co2Sensor.sensorStatus);
 
     }
 
@@ -76,7 +76,7 @@ class Co2SensorMonitorTest {
 //        co2Sensor.forEach(data -> System.out.println(data));
 
 
-        assertEquals(Co2SensorStatus.ALERT, co2Sensor.currentStatus);
+        assertEquals(Co2SensorStatus.ALERT, co2Sensor.sensorStatus);
 
     }
 
@@ -89,7 +89,7 @@ class Co2SensorMonitorTest {
         Co2Sensor co2Sensor = co2SensorMonitor.currentStatusOfSensor(sensorId);
 
 
-        assertEquals(Co2SensorStatus.WARN, co2Sensor.currentStatus);
+        assertEquals(Co2SensorStatus.WARN, co2Sensor.sensorStatus);
 
     }
 

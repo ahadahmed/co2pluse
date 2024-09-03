@@ -10,7 +10,7 @@ public class Co2Sensor {
     Integer co2;
     Instant time;
 
-    Co2SensorStatus currentStatus;
+    Co2SensorStatus sensorStatus;
     Co2SensorStatus dataStatus;
 
     Instant alertStartTime;
@@ -51,12 +51,12 @@ public class Co2Sensor {
         this.time = time;
     }
 
-    public Co2SensorStatus getCurrentStatus() {
-        return currentStatus;
+    public Co2SensorStatus getSensorStatus() {
+        return sensorStatus;
     }
 
-    public void setCurrentStatus(Co2SensorStatus currentStatus) {
-        this.currentStatus = currentStatus;
+    public void setSensorStatus(Co2SensorStatus sensorStatus) {
+        this.sensorStatus = sensorStatus;
     }
 
     public Instant getAlertStartTime() {
@@ -80,7 +80,7 @@ public class Co2Sensor {
         return "Co2Sensor{" +
                 ", co2=" + co2 +
                 ", time=" + time +
-                ", currentStatus=" + currentStatus +
+                ", currentStatus=" + sensorStatus +
                 ", dataStatus=" + dataStatus +
                 ", alertStartTime=" + alertStartTime +
                 ", alertEndTime=" + alertEndTime +
