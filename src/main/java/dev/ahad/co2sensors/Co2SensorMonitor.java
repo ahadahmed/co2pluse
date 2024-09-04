@@ -5,13 +5,15 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 import java.util.function.Predicate;
 
+import static dev.ahad.co2sensors.Co2PulseApplication.OK;
+import static dev.ahad.co2sensors.Co2PulseApplication.WARNING;
+
 @Component
 public class Co2SensorMonitor {
 
 
     private SensorRepository sensorRepository;
-    public static final Predicate<Co2Sensor> WARNING = metrics -> metrics.co2 >= 2000;
-    public static final Predicate<Co2Sensor> OK = metrics -> metrics.co2 < 2000;
+
     private AlertChecker alertChecker;
 
     public Co2SensorMonitor(SensorRepository sensorRepository) {

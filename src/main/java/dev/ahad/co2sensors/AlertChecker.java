@@ -2,8 +2,8 @@ package dev.ahad.co2sensors;
 
 import java.util.*;
 
-import static dev.ahad.co2sensors.Co2SensorMonitor.OK;
-import static dev.ahad.co2sensors.Co2SensorMonitor.WARNING;
+import static dev.ahad.co2sensors.Co2PulseApplication.OK;
+import static dev.ahad.co2sensors.Co2PulseApplication.WARNING;
 
 
 public class AlertChecker {
