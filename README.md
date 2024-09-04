@@ -1,4 +1,4 @@
-# CO2 STATUS
+# CO2 PULSE
 
 ## Preface
 
@@ -74,6 +74,5 @@ The task is to build a service capable of collecting data from hundreds of thous
 
 ## Implementation Note:
 
-Overview
 For this project, an in-memory implementation is used for simplicity and rapid development. All sensor data, measurements, and alert statuses are stored in memory, allowing for quick access and manipulation without the need for a persistent database. This approach is suitable for testing and small-scale use but has limitations when scaling to production environments with large data volumes.
 Sensor measurements, statuses, and alerts are stored in data structures `map` and `list` within the application memory. So the data will be lost upon application startup
