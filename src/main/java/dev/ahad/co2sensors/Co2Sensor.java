@@ -11,7 +11,7 @@ public class Co2Sensor {
     Instant time;
 
     Co2SensorStatus sensorStatus;
-    Co2SensorStatus dataStatus;
+    Co2SensorStatus readingStatus;
 
     Instant alertStartTime;
     Instant alertEndTime;
@@ -78,10 +78,11 @@ public class Co2Sensor {
     @Override
     public String toString() {
         return "Co2Sensor{" +
-                ", co2=" + co2 +
+                "sensorId=" + sensorId +
                 ", time=" + time +
-                ", currentStatus=" + sensorStatus +
-                ", dataStatus=" + dataStatus +
+                ", co2=" + co2 +
+                ", readingStatus=" + readingStatus +
+                ", sensorStatus=" + sensorStatus +
                 ", alertStartTime=" + alertStartTime +
                 ", alertEndTime=" + alertEndTime +
                 '}';

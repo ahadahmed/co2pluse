@@ -30,12 +30,12 @@ public class Co2SensorMonitor {
 
 
         if (WARNING.test(sensorReading)) {
-            sensorReading.dataStatus = Co2SensorStatus.WARN;
+            sensorReading.readingStatus = Co2SensorStatus.WARN;
             sensorReading.sensorStatus = Co2SensorStatus.WARN;
         }
 
         if (OK.test(sensorReading)) {
-            sensorReading.dataStatus = Co2SensorStatus.OK;
+            sensorReading.readingStatus = Co2SensorStatus.OK;
             sensorReading.sensorStatus = Co2SensorStatus.OK;
 
         }

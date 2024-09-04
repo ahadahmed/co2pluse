@@ -9,15 +9,19 @@ import static dev.ahad.co2sensors.Co2SensorMonitor.WARNING;
 public class AlertChecker {
 
     private SensorRepository sensorRepository;
+    private LinkedList<Co2Sensor> sensorMetrics;
+    private LinkedList<SensorAlert> sensorAlerts;
 
     AlertChecker(SensorRepository sensorRepository) {
         this.sensorRepository = sensorRepository;
+
     }
 
     void checkSensorStatus(UUID sensorId) {
-        LinkedList<Co2Sensor> sensorMetrics = this.sensorRepository.getSensorData(sensorId);
-        LinkedList<SensorAlert> sensorAlerts = this.sensorRepository
-                .getSensorAlerts(sensorId);
+        this.sensorMetrics = this.sensorRepository.getSensorData(sensorId);
+        this.sensorAlerts = this.sensorRepository.getSensorAlerts(sensorId);
+        Map<UUID, LinkedList<SensorAlert>> alerts = this.sensorRepository.sensorAlerts();
+
         List<Co2Sensor> last3SensorReadings = new ArrayList<>();
 
 
@@ -34,16 +38,17 @@ public class AlertChecker {
             if (last3SensorReadings.stream().allMatch(WARNING)) {
                 lastReading.setSensorStatus(Co2SensorStatus.ALERT);
                 SensorAlert alert = new SensorAlert(sensorId, lastReading.time);
-                sensorAlerts.add(alert);
-                this.sensorRepository.sensorAlerts().putIfAbsent(sensorId, sensorAlerts);
+                this.sensorAlerts.add(alert);
+                alerts.putIfAbsent(sensorId, sensorAlerts);
                 lastReading.setAlertStartTime(lastReading.time);
             } else if (last3SensorReadings.stream().allMatch(OK)) {
-
                 lastReading.setSensorStatus(Co2SensorStatus.OK);
-//                sensorAlerts.peekLast().setAlertEndTime(lastReading.time);
-                this.sensorRepository.sensorAlerts()
-                        .putIfAbsent(sensorId, sensorAlerts);
-                lastReading.setAlertEndTime(lastReading.time);
+                if (!sensorAlerts.isEmpty()) {
+                    lastReading.setAlertEndTime(lastReading.time);
+                    sensorAlerts.peekLast().setAlertEndTime(lastReading.time);
+                    alerts.putIfAbsent(sensorId, sensorAlerts);
+                }
+
             } else if (secondLastReading.getSensorStatus() == Co2SensorStatus.ALERT) {
                 lastReading.setSensorStatus(Co2SensorStatus.ALERT);
                 lastReading.setAlertStartTime(secondLastReading.getAlertStartTime());
