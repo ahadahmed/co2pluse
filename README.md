@@ -21,9 +21,8 @@ or
 2. Start the application with `java -jar target/co2-pulse-0.0.1-SNAPSHOT.jar`
    
 
-## Assignment
-The task is to build a service capable of collecting data from hundreds
-of thousands of sensors and alert if the CO2 concentrations reach critical levels.
+## Task Overview
+The task is to build a service capable of collecting data from hundreds of thousands of sensors and alert if the CO2 concentrations reach critical levels.
 
 ## Acceptance criteria
   • The service should be able to receive measurements from each sensor at the rate of 1 per minute
@@ -72,3 +71,9 @@ of thousands of sensors and alert if the CO2 concentrations reach critical level
 }
 ```
 
+
+## Implementation Note:
+
+Overview
+For this project, an in-memory implementation is used for simplicity and rapid development. All sensor data, measurements, and alert statuses are stored in memory, allowing for quick access and manipulation without the need for a persistent database. This approach is suitable for testing and small-scale use but has limitations when scaling to production environments with large data volumes.
+Sensor measurements, statuses, and alerts are stored in data structures `map` and `list` within the application memory. So the data will be lost upon application startup
