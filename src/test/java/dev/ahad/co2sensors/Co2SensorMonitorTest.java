@@ -28,10 +28,10 @@ class Co2SensorMonitorTest {
         List<Co2Sensor> co2Sensors = readDataFrom(censorStatusOkOnCompletion);
         co2Sensors.forEach(data -> co2SensorMonitor.measureSensorStatus(data, sensorId));
         Co2Sensor co2Sensor = co2SensorMonitor.currentStatusOfSensor(sensorId);
-//        co2Sensor.forEach(data -> System.out.println(data));
+        co2Sensors.forEach(data -> System.out.println(data));
 
 
-        assertEquals(Co2SensorStatus.OK, co2Sensor.currentStatus);
+        assertEquals(Co2SensorStatus.OK, co2Sensor.sensorStatus);
 
     }
 
@@ -43,10 +43,10 @@ class Co2SensorMonitorTest {
         co2Sensors.forEach(data -> co2SensorMonitor.measureSensorStatus(data, sensorId));
         Co2Sensor co2Sensor = co2SensorMonitor.currentStatusOfSensor(sensorId);
 
-//        co2Sensor.forEach(data -> System.out.println(data));
+        co2Sensors.forEach(data -> System.out.println(data));
 
 
-        assertEquals(Co2SensorStatus.OK, co2Sensor.currentStatus);
+        assertEquals(Co2SensorStatus.OK, co2Sensor.sensorStatus);
 
     }
 
@@ -58,10 +58,10 @@ class Co2SensorMonitorTest {
         co2Sensors.forEach(data -> co2SensorMonitor.measureSensorStatus(data, sensorId));
         Co2Sensor co2Sensor = co2SensorMonitor.currentStatusOfSensor(sensorId);
 
-//        co2Sensor.forEach(data -> System.out.println(data));
+        co2Sensors.forEach(data -> System.out.println(data));
 
 
-        assertEquals(Co2SensorStatus.ALERT, co2Sensor.currentStatus);
+        assertEquals(Co2SensorStatus.ALERT, co2Sensor.sensorStatus);
 
     }
 
@@ -73,10 +73,10 @@ class Co2SensorMonitorTest {
         co2Sensors.forEach(data -> co2SensorMonitor.measureSensorStatus(data, sensorId));
         Co2Sensor co2Sensor = co2SensorMonitor.currentStatusOfSensor(sensorId);
 
-//        co2Sensor.forEach(data -> System.out.println(data));
+        co2Sensors.forEach(data -> System.out.println(data));
 
 
-        assertEquals(Co2SensorStatus.ALERT, co2Sensor.currentStatus);
+        assertEquals(Co2SensorStatus.ALERT, co2Sensor.sensorStatus);
 
     }
 
@@ -87,9 +87,8 @@ class Co2SensorMonitorTest {
         List<Co2Sensor> co2Sensors = readDataFrom(censorStatusOkOnCompletion);
         co2Sensors.forEach(data -> co2SensorMonitor.measureSensorStatus(data, sensorId));
         Co2Sensor co2Sensor = co2SensorMonitor.currentStatusOfSensor(sensorId);
-
-
-        assertEquals(Co2SensorStatus.WARN, co2Sensor.currentStatus);
+        co2Sensors.forEach(data -> System.out.println(data));
+        assertEquals(Co2SensorStatus.WARN, co2Sensor.sensorStatus);
 
     }
 
@@ -127,7 +126,6 @@ class Co2SensorMonitorTest {
     }
 
     private File warningFile() {
-        System.out.println(UUID.randomUUID());
         ClassLoader classLoader = this.getClass().getClassLoader();
         File file = new File(classLoader.getResource(testDataDirectory + "co2sensors_warning.csv").getFile());
         return file;
