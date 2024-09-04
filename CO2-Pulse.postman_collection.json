@@ -1,0 +1,449 @@
+{
+	"info": {
+		"_postman_id": "73ef3af0-2e88-4372-8687-f3c78f80c34b",
+		"name": "CO2-Tracker",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21304224"
+	},
+	"item": [
+		{
+			"name": "metrics-30days",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.get(\"sensorId\");\r",
+							"pm.environment.set(\"sensorId\", \"f6a6daf8-191c-4d2e-81d2-d31350361689\");\r",
+							"console.log(\"sensorId:\", pm.environment.get(\"sensorId\"))"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is less than 500ms\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response body has the required fields and data types\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData).to.have.property('sensorId').that.is.a('number');\r",
+							"    pm.expect(responseData).to.have.property('metrics').that.is.an('array');\r",
+							"    \r",
+							"    responseData.metrics.forEach(metric => {\r",
+							"        pm.expect(metric).to.be.an('object');\r",
+							"        pm.expect(metric).to.have.property('timestamp').that.is.a('string');\r",
+							"        pm.expect(metric).to.have.property('value').that.is.a('number');\r",
+							"    });\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/sensors/{{sensorId}}/metrics",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"sensors",
+						"{{sensorId}}",
+						"metrics"
+					]
+				},
+				"description": "# Get Sensor Metrics\n\nThis endpoint retrieves the metrics for a specific sensor identified by the `sensorId` parameter.\n\n### Request Parameters\n\n- `sensorId` (path): The unique identifier of the sensor.\n    \n\n### Response\n\nThe response will include the metrics data for the specified sensor."
+			},
+			"response": []
+		},
+		{
+			"name": "GetSensorStatus",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.get(\"sensorId\");\r",
+							"pm.environment.set(\"sensorId\", \"f6a6daf8-191c-4d2e-81d2-d31350361689\");\r",
+							"console.log(\"sensorId:\", pm.environment.get(\"sensorId\"))"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is less than 500ms\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response body has the required fields and data types\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData).to.have.property('sensorId').that.is.a('number');\r",
+							"    pm.expect(responseData).to.have.property('metrics').that.is.an('array');\r",
+							"    \r",
+							"    responseData.metrics.forEach(metric => {\r",
+							"        pm.expect(metric).to.be.an('object');\r",
+							"        pm.expect(metric).to.have.property('timestamp').that.is.a('string');\r",
+							"        pm.expect(metric).to.have.property('value').that.is.a('number');\r",
+							"    });\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/sensors/{{sensorId}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"sensors",
+						"{{sensorId}}"
+					]
+				},
+				"description": "# Get Sensor Metrics\n\nThis endpoint retrieves the metrics for a specific sensor identified by the `sensorId` parameter.\n\n### Request Parameters\n\n- `sensorId` (path): The unique identifier of the sensor.\n    \n\n### Response\n\nThe response will include the metrics data for the specified sensor."
+			},
+			"response": []
+		},
+		{
+			"name": "save-sensor-data[OK]",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.get(\"sensorId\");\r",
+							"pm.environment.set(\"sensorId\", \"f6a6daf8-191c-4d2e-81d2-d31350361689\");\r",
+							"console.log(\"sensorId:\", pm.environment.get(\"sensorId\"))"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is less than 500ms\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response body has the required fields and data types\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData).to.have.property('sensorId').that.is.a('number');\r",
+							"    pm.expect(responseData).to.have.property('metrics').that.is.an('array');\r",
+							"    \r",
+							"    responseData.metrics.forEach(metric => {\r",
+							"        pm.expect(metric).to.be.an('object');\r",
+							"        pm.expect(metric).to.have.property('timestamp').that.is.a('string');\r",
+							"        pm.expect(metric).to.have.property('value').that.is.a('number');\r",
+							"    });\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"co2\" : 1252,\r\n\"time\" : \"2019-02-01T18:57:52+00:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/sensors/{{sensorId}}/measurements",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"sensors",
+						"{{sensorId}}",
+						"measurements"
+					]
+				},
+				"description": "# Get Sensor Metrics\n\nThis endpoint retrieves the metrics for a specific sensor identified by the `sensorId` parameter.\n\n### Request Parameters\n\n- `sensorId` (path): The unique identifier of the sensor.\n    \n\n### Response\n\nThe response will include the metrics data for the specified sensor."
+			},
+			"response": []
+		},
+		{
+			"name": "save-sensor-data[WARNING]",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.get(\"sensorId\");\r",
+							"pm.environment.set(\"sensorId\", \"f6a6daf8-191c-4d2e-81d2-d31350361689\");\r",
+							"console.log(\"sensorId:\", pm.environment.get(\"sensorId\"))"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is less than 500ms\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response body has the required fields and data types\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData).to.have.property('sensorId').that.is.a('number');\r",
+							"    pm.expect(responseData).to.have.property('metrics').that.is.an('array');\r",
+							"    \r",
+							"    responseData.metrics.forEach(metric => {\r",
+							"        pm.expect(metric).to.be.an('object');\r",
+							"        pm.expect(metric).to.have.property('timestamp').that.is.a('string');\r",
+							"        pm.expect(metric).to.have.property('value').that.is.a('number');\r",
+							"    });\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"co2\" : 2000,\r\n\"time\" : \"2024-08-01T18:56:52+00:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/sensors/{{sensorId}}/measurements",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"sensors",
+						"{{sensorId}}",
+						"measurements"
+					]
+				},
+				"description": "# Get Sensor Metrics\n\nThis endpoint retrieves the metrics for a specific sensor identified by the `sensorId` parameter.\n\n### Request Parameters\n\n- `sensorId` (path): The unique identifier of the sensor.\n    \n\n### Response\n\nThe response will include the metrics data for the specified sensor."
+			},
+			"response": []
+		},
+		{
+			"name": "metrics-30days Copy",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is less than 500ms\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response body has the required fields and data types\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData).to.have.property('sensorId').that.is.a('number');\r",
+							"    pm.expect(responseData).to.have.property('metrics').that.is.an('array');\r",
+							"    \r",
+							"    responseData.metrics.forEach(metric => {\r",
+							"        pm.expect(metric).to.be.an('object');\r",
+							"        pm.expect(metric).to.have.property('timestamp').that.is.a('string');\r",
+							"        pm.expect(metric).to.have.property('value').that.is.a('number');\r",
+							"    });\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/sensors/test",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"sensors",
+						"test"
+					]
+				},
+				"description": "# Get Sensor Metrics\n\nThis endpoint retrieves the metrics for a specific sensor identified by the `sensorId` parameter.\n\n### Request Parameters\n\n- `sensorId` (path): The unique identifier of the sensor.\n    \n\n### Response\n\nThe response will include the metrics data for the specified sensor."
+			},
+			"response": []
+		},
+		{
+			"name": "sensor-alerts",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.get(\"sensorId\");\r",
+							"pm.environment.set(\"sensorId\", \"f6a6daf8-191c-4d2e-81d2-d31350361689\");"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/sensors/{{sensorId}}/alerts",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"sensors",
+						"{{sensorId}}",
+						"alerts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sensor-readings",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"sensorId\", \"f6a6daf8-191c-4d2e-81d2-d31350361689\");"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/sensors/{{sensorId}}/readings",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"sensors",
+						"{{sensorId}}",
+						"readings"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "sensorId",
+			"value": "{uuid}"
+		}
+	]
+}
